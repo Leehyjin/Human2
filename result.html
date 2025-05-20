@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결과</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>총칼로리 계산 결과</h1>
+
+        <nav class="nav-menu">
+            <a href="/">식단 입력</a>
+            <a href="/">총 열량 계산하기</a>
+            <a href="/history">이력보기</a>                
+        </nav>
+
+
+        <div class="result-box">
+            <p>총 칼로리: <strong>{{}}</strong></p>
+            {% if total_calories > standard_calories %}
+            <p>기준 칼로리 초과량: <strong>{{ total_calories > standard_calories}}kcal</strong></p>
+            <p>추천 운동: <strong>{{}}</strong></p>
+            {% elif total_calories < standard_carlories %}
+            <p>추가 섭취 필요 칼로리량</p>: <strong>{{ standard_carlories-total_calories }}</strong></p>
+            <p>추천 음식: <strong>{{}}</strong></p>
+            {% else %}
+                <p>지금 칼로리를 유지하세요</p>
+            {% endif %}    
+        </div>
+
+        
+        <div class="gender-info">
+            <h2>성인 기준 칼로리</h2>
+            <label for="gender">성별</label>
+            <select name="gender" id="gender" onchange="showInfo()">
+                <option value="male" selected >남성</option>
+                <option value="female">여성</option>
+            </select>
+        </div>
+
+        <div id="maleInfo" class="info-box">
+            <strong>남성 성인 평균 권장 칼로리: 2500~2800kcal</strong>   
+            
+        </div>
+
+        <div id="femaleInfo" class="info-box">
+            <strong>여성 성인 평균 권장 칼로리: 2000~2300kcal</strong>    
+        </div>
+
+        <a herf="/" class="back-bnt">다시 계산하기</a>
+
+    </div>
+    <script>
+        function showInfo(){
+            const gender = document.getElementById("gender").value;
+            const maleInfo = document.getElementById("maleInfo");
+            const femaleInfo = document.getElementById("femaleInfo");
+
+            maleInfo.style.display ="none";
+            femaleInfo.style.display ="none";
+
+            if(gender == "male"){
+                maleInfo.style.display="block";
+                femaleInfo.style.display="none";
+            }else if(gender=="female") {
+                maleInfo.style.display="none";
+                femaleInfo.style.display="block";
+            }
+        }
+
+        window.onload = function(){
+            document.getElementById("maleInfo").style.display="none";
+            document.getElementById("femaleInfo").style.display="none";
+        };
+
+    </script>
+
+</body>
+</html>
