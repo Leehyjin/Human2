@@ -13,7 +13,7 @@ warnings.filterwarnings('ignore')
 import google.generativeai as genai
 
 #gemini 호출 함수 작성
-genai.configure(api_key="AIzaSyCQIYftXpxtC-LhNF9f56p4AOgT8qfpjN8")
+genai.configure(api_key="")
 
 
 def ask_gemini_for_route(current_location: str, destination_info: str)-> str:
